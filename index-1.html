@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💗</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#ffd6e7,#ff9ec5,#ffc4dd);display:flex;align-items:center;justify-content:center;overflow:hidden;color:#b51f65}
+.card{width:min(90%,360px);padding:30px 24px;background:#ffffffd9;border:2px solid #fff;border-radius:28px;text-align:center;box-shadow:0 15px 45px #d6338450;position:relative;z-index:2}
+h1{margin:0 0 8px;font-size:27px}.sub{margin:0 0 22px;color:#b34a79}
+input{width:100%;padding:14px 16px;margin:8px 0;border:2px solid #ffc0d9;border-radius:14px;outline:none;font-size:16px;background:#fff8fb;color:#9b245b}
+input:focus{border-color:#f04f99}button{border:0;border-radius:14px;padding:13px 22px;background:linear-gradient(90deg,#ff5ca8,#ed2e85);color:white;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 6px 15px #ed2e8540}
+#loginBtn{width:100%;margin-top:12px}.hint{font-size:12px;color:#c26a91;margin-top:14px}
+#success{display:none;margin-top:18px;color:#d42d7c;font-weight:700}
+#success button{margin-top:10px;padding:9px 30px}
+#loveScreen{display:none;position:fixed;inset:0;z-index:5;background:linear-gradient(135deg,#ffb8d6,#ff6fae,#ffc8df);align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.loveText{position:relative;z-index:2;color:white;text-shadow:0 4px 18px #c51b68aa;animation:pulse 1.2s infinite}
+.loveText h1{font-size:clamp(42px,12vw,72px);margin:0}.loveText p{font-size:22px;margin-top:12px}
+.heart{position:absolute;bottom:-60px;color:#fff;font-size:24px;animation:floatUp linear forwards;opacity:.9;pointer-events:none}
+@keyframes floatUp{0%{transform:translateY(0) rotate(0) scale(.7);opacity:0}10%{opacity:1}100%{transform:translateY(-115vh) rotate(360deg) scale(1.5);opacity:0}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.shake{animation:shake .3s}@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+</style>
+</head>
+<body>
+<div class="card" id="loginCard">
+  <div style="font-size:45px">💌</div>
+  <h1>Login Dulu, Sayang!</h1>
+  <p class="sub">Ada kejutan kecil buat kamu 💗</p>
+  <form id="loginForm">
+    <input id="username" placeholder="Username" autocomplete="off" required>
+    <input id="password" type="password" placeholder="Password" required>
+    <button id="loginBtn" type="submit">Masuk 💖</button>
+  </form>
+  <div id="success">🎉 Login Berhasil, Sayang!<br><button id="okBtn" type="button">OK 💗</button></div>
+  <div class="hint">Isi dengan benar yaa, jangan ngintip 🤭</div>
+</div>
+<div id="loveScreen">
+  <div class="loveText"><h1>Love You 😘</h1><p>Kamu itu favoritku 💗</p><div style="font-size:34px">💕 💖 💞</div></div>
+</div>
+<script>
+const form=document.getElementById('loginForm'), success=document.getElementById('success');
+form.addEventListener('submit',e=>{
+ e.preventDefault();
+ const u=document.getElementById('username').value.trim();
+ const p=document.getElementById('password').value;
+ if(u==='i' && p==='love you'){
+   success.style.display='block';
+   document.getElementById('loginBtn').style.display='none';
+ }else{
+   const card=document.getElementById('loginCard');
+   card.classList.remove('shake');void card.offsetWidth;card.classList.add('shake');
+   alert('Username atau password salah 😝 Coba lagi ya!');
+ }
+});
+document.getElementById('okBtn').addEventListener('click',()=>{
+ document.getElementById('loginCard').style.display='none';
+ const screen=document.getElementById('loveScreen');screen.style.display='flex';
+ for(let i=0;i<65;i++)setTimeout(makeHeart,i*90);
+ setInterval(makeHeart,220);
+});
+function makeHeart(){
+ const h=document.createElement('div');h.className='heart';
+ h.textContent=['💗','💖','💕','💘','💞','❤️'][Math.floor(Math.random()*6)];
+ h.style.left=Math.random()*100+'vw';
+ h.style.fontSize=(18+Math.random()*34)+'px';
+ h.style.animationDuration=(3+Math.random()*4)+'s';
+ document.getElementById('loveScreen').appendChild(h);
+ setTimeout(()=>h.remove(),7500);
+}
+</script>
+</body>
+</html>
